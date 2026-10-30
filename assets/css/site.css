@@ -383,7 +383,7 @@ p { margin: 0 0 1em; }
 .reach { background: var(--oxblood); color: var(--bone); text-align: center; padding-block: clamp(7rem, 18vh, 12rem); }
 .reach h2 { font-size: var(--t-mega); line-height: 0.85; margin-bottom: 2rem; }
 .reach p { font-size: var(--t-lead); color: rgba(247, 247, 243, 0.8); max-width: 34rem; margin: 0 auto 2.5rem; }
-.reach__mail { display: inline-block; font: 500 clamp(1.8rem, 1rem + 2.6vw, 3.25rem) / 1 var(--display); color: var(--saffron); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 0.3rem; margin-bottom: 2.5rem; }
+.reach__mail { display: inline-block; max-width: 100%; overflow-wrap: anywhere; font: 500 min(clamp(1.8rem, 1rem + 2.6vw, 3.25rem), 7vw) / 1 var(--display); color: var(--saffron); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 0.3rem; margin-bottom: 2.5rem; }
 .reach__actions { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
 .reach__meta { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem 1.75rem; margin: 3.5rem 0 0; padding: 0; font-size: var(--t-small); color: rgba(247, 247, 243, 0.8); }
 .reach__meta a { text-decoration: none; }

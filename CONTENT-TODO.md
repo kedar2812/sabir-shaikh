@@ -18,7 +18,7 @@ Anything underlined with a dotted line on the site (class `tbd`) is a placeholde
 
 ## Accounts and links
 - [ ] Facebook: the handle supplied, facebook.com/sabirshaikh, opens a different person's profile ("Sabir S"). The site links to the page his Instagram links to (profile.php?id=61595695503875). Once a username is set on that page, swap the URL in `_partials/header.html`, `_partials/footer.html`, `index.html`, `about/index.html` and `contact/index.html`
-- [ ] Contact email. `hello@sabirshaikh.in` matches the reference mockup; confirm the inbox exists
+- [x] Contact email: hello.sabirshaikh@gmail.com (supplied by the client)
 - [ ] WhatsApp business number, if he wants it shown
 - [ ] Instagram live feed. The home page shows his 8 latest posts, saved into `assets/img/insta/`. To have new posts appear automatically: create a free feed at behold.so, connect @sabirshaikh.global, and paste the JSON feed URL into `data-feed=""` on the Instagram section in `index.html`. The site swaps the saved tiles for the live feed on its own
 - [ ] Contact form endpoint: paste a Formspree/Basin URL into `data-endpoint=""` in `contact/index.html` (until then the form opens the visitor's email app)
