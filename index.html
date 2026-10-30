@@ -43,7 +43,9 @@
       "url": "https://sabirshaikh.in/",
       "image": "https://sabirshaikh.in/assets/img/sabir-portrait.webp",
       "jobTitle": "Entrepreneur",
-      "description": "Sabir Salim Shaikh is an entrepreneur, writer and podcast host who writes about building businesses.",
+      "description": "Sabir Salim Shaikh is an entrepreneur, writer and podcast host based in Pune, India, who writes about building businesses.",
+      "email": "mailto:hello@sabirshaikh.in",
+      "homeLocation": { "@type": "Place", "name": "Pune, India", "address": { "@type": "PostalAddress", "addressLocality": "Pune", "addressRegion": "Maharashtra", "addressCountry": "IN" } },
       "sameAs": [
         "https://www.instagram.com/",
         "https://www.linkedin.com/",
@@ -118,13 +120,16 @@
         <span class="hero__middle">Salim</span>
         <span class="hero__last">Shaikh</span>
       </h1>
-      <p class="hero__lede">Sabir Salim Shaikh. Entrepreneur, writer and podcast host.</p>
+      <p class="hero__lede">A curious mind.<br>A purposeful life.</p>
       <div class="hero__cue" aria-hidden="true"><i></i>Scroll</div>
       <div class="hero__after">
         <div class="hero__intro">
           <h2>I build businesses and write down what they teach me.</h2>
           <p>Essays on the blog, conversations on the podcast, and a post on Instagram every day for everything in between.</p>
-          <a class="link-arrow" href="blogs/">Read the essays <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+          <div class="hero__links">
+            <a class="link-arrow" href="about/">About Sabir <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+            <a class="link-arrow" href="blogs/">Read the essays <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+          </div>
         </div>
         <ul class="hero__social" aria-label="Sabir on social media">
           <li><a href="https://www.instagram.com/" data-track="instagram" rel="me noopener" target="_blank">Instagram</a></li>
@@ -192,11 +197,15 @@
         <img src="assets/img/sabir-portrait.webp" width="854" height="1280" loading="lazy" decoding="async" alt="Portrait of Sabir Salim Shaikh smiling, hands in pockets, wearing a cream blazer with an orange pocket square">
       </figure>
       <div class="about__body">
-        <h2 id="about-title">About Sabir</h2>
-        <p class="lead">Sabir Salim Shaikh is an entrepreneur. He founded <span class="tbd">Company name</span> in <span class="tbd">year</span> and today works across <span class="tbd">sectors</span>.</p>
-        <p>He writes about running companies, and on the podcast he sits down with people who have built them. Everything he publishes comes from work he has done himself.</p>
+        <h2 id="about-title" class="curious" data-reel>
+          <span class="sr-only">About Sabir. </span>Curious about
+          <span class="reel" aria-hidden="true"><span class="reel__track"><span>ideas.</span><span>people.</span><span>places.</span><span>conversations.</span></span></span>
+          <span class="sr-only">ideas, people, places and conversations.</span>
+        </h2>
+        <p class="lead">Sabir Salim Shaikh is an entrepreneur based in Pune. He founded <span class="tbd">Company name</span> in <span class="tbd">year</span> and today works across <span class="tbd">sectors</span>.</p>
+        <p>He learns the way most good operators do: from the people he meets, the places work takes him and the ideas he tries out. He writes about running companies, and on the podcast he sits down with people who have built them.</p>
         <dl class="facts">
-          <div><dt>Based in</dt><dd class="tbd">City, country</dd></div>
+          <div><dt>Based in</dt><dd>Pune, India</dd></div>
           <div><dt>Works across</dt><dd class="tbd">Sector, sector, sector</dd></div>
           <div><dt>Studied</dt><dd class="tbd">Degree, institution</dd></div>
           <div><dt>In business since</dt><dd class="tbd">Year</dd></div>
@@ -210,7 +219,7 @@
     <div class="wrap">
       <div class="section__head">
         <h2 id="business-title">Business</h2>
-        <p>The companies I run and the ones I've backed. Each link goes to the company's own site.</p>
+        <p>The ventures I run, the ones I've backed and the initiatives I help with. Each link goes to the company's own site.</p>
       </div>
       <ul class="ventures">
         <li class="venture"><a href="#" data-track="venture">
@@ -239,7 +248,7 @@
     <div class="wrap">
       <div class="section__head">
         <h2 id="blogs-title">Blogs</h2>
-        <p>Essays on building companies, making deals and leading people. One idea per piece, and nothing I haven't tried myself.</p>
+        <p>What I've learned about business, people and the world around me. One idea per piece, and nothing I haven't tried myself.</p>
       </div>
       <ul class="topics" aria-label="Browse by topic">
         <li><a class="topic" href="blogs/?topic=building">Building companies</a></li>
@@ -321,7 +330,7 @@
     <div class="wrap">
       <div class="section__head">
         <h2 id="featured-title">Featured</h2>
-        <p>Interviews, panels and the occasional article with my name on it.</p>
+        <p>Interviews, talks and appearances, and the occasional story from the road.</p>
       </div>
       <ul class="press">
         <li><span class="press__outlet tbd">Publication</span><a class="press__head tbd" href="#" data-track="press">Headline of the interview or article</a><span class="press__kind">Interview</span><span class="press__year">2026</span></li>
@@ -355,11 +364,18 @@
   <section class="reach" aria-labelledby="reach-title" data-dark>
     <div class="wrap">
       <h2 id="reach-title">Write to Sabir.</h2>
-      <p>Business proposals, speaking invitations, podcast guests and press. Every message is read.</p>
+      <p>Always open to a good conversation. Business proposals, speaking invitations, podcast guests and press: every message is read.</p>
       <a class="reach__mail" href="mailto:hello@sabirshaikh.in" data-track="email">hello@sabirshaikh.in</a>
       <div class="reach__actions">
         <a class="btn btn--light" href="contact/">Open the contact form</a>
       </div>
+      <ul class="reach__meta">
+        <li class="reach__place"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M8 14.5s4.5-4.1 4.5-7.7a4.5 4.5 0 0 0-9 0c0 3.6 4.5 7.7 4.5 7.7z"/><circle cx="8" cy="6.8" r="1.6"/></svg>Pune, India</li>
+        <li><a href="https://www.linkedin.com/" data-track="linkedin" rel="me noopener" target="_blank">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/" data-track="instagram" rel="me noopener" target="_blank">Instagram</a></li>
+        <li><a href="https://x.com/" data-track="x" rel="me noopener" target="_blank">X</a></li>
+        <li><a href="https://www.youtube.com/" data-track="youtube" rel="me noopener" target="_blank">YouTube</a></li>
+      </ul>
     </div>
   </section>
 
@@ -369,11 +385,12 @@
 <footer class="foot">
   <div class="wrap">
     <a href="" class="foot__crest" aria-label="Back to the home page">
-      <svg viewBox="0 0 1825 1590" class="crest" role="img" aria-label="The Sabir Salim Shaikh crest"><use href="assets/img/crest.svg#c"/></svg>
+      <svg viewBox="0 0 1825 1590" class="crest" aria-hidden="true"><use href="assets/img/crest.svg#c"/></svg>
+      <span class="foot__mark">Sabir Salim Shaikh</span>
     </a>
     <div class="foot__grid">
       <div>
-        <h2>Sabir Salim Shaikh</h2>
+        <h2>Pune, India</h2>
         <p class="foot__note">Entrepreneur, writer and podcast host. New essays go up on the blog; the daily stuff goes on Instagram.</p>
       </div>
       <div>
@@ -398,7 +415,7 @@
       </div>
     </div>
     <div class="foot__base">
-      <span>&copy; 2026 Sabir Salim Shaikh</span>
+      <span>&copy; 2026 Sabir Salim Shaikh. All rights reserved.</span>
       <a href="privacy-policy/">Privacy policy</a>
     </div>
   </div>

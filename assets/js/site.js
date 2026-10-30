@@ -191,6 +191,22 @@
     });
   });
 
+  // Word reel: one word per step as the heading travels up the screen.
+  document.querySelectorAll("[data-reel]").forEach(function (el) {
+    var track = el.querySelector(".reel__track");
+    var n = track.children.length;
+    var last = -1;
+    scenes.push(function () {
+      if (reduced || !inView(el)) return;
+      var vh = window.innerHeight;
+      var p = clamp((vh * 0.85 - el.getBoundingClientRect().top) / (vh * 0.55));
+      var i = Math.min(n - 1, Math.floor(p * n));
+      if (i === last) return;
+      last = i;
+      track.style.transform = "translate3d(0," + (-i * 100 / n) + "%,0)";
+    });
+  });
+
   // Instagram row drifts sideways with the scroll.
   document.querySelectorAll("[data-drift]").forEach(function (el) {
     var row = el.querySelector(".insta__row");

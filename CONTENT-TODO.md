@@ -4,7 +4,7 @@ Anything underlined with a dotted line on the site (class `tbd`) is a placeholde
 
 ## Facts
 - [ ] Company names, one-line descriptions, roles and start years (home: Business; About: Now and Experience)
-- [ ] City, sectors, degree and institution, year in business (home: About; About page)
+- [ ] Sectors, degree and institution, year in business, home town (home: About; About page). Pune, India is taken from the reference mockup
 - [ ] Biography: family background, first business, current companies (About: Biography)
 - [ ] Awards and milestones (About: Recognition)
 - [ ] Press, panels and podcast appearances with links (home: Featured)
@@ -12,7 +12,7 @@ Anything underlined with a dotted line on the site (class `tbd`) is a placeholde
 
 ## Accounts and links
 - [ ] Final domain. Every canonical URL, Open Graph tag, schema block, `sitemap.xml` and `robots.txt` uses `https://sabirshaikh.in`
-- [ ] Contact email. `hello@sabirshaikh.in` is a placeholder
+- [ ] Contact email. `hello@sabirshaikh.in` matches the reference mockup; confirm the inbox exists
 - [ ] Instagram, LinkedIn, X and YouTube profile URLs (header menu, footer, hero, contact page, `sameAs` in schema)
 - [ ] WhatsApp business number, if he wants it shown
 - [ ] Instagram feed: create a free feed at behold.so and paste the JSON URL into `data-feed=""` on the Instagram section in `index.html`
@@ -22,6 +22,6 @@ Anything underlined with a dotted line on the site (class `tbd`) is a placeholde
 
 ## Copy to approve
 These were written in Sabir's voice and need his sign-off:
-- [ ] Hero line, manifesto, and the four crest meanings (tiger, horse, pen and book, flags)
+- [ ] Hero line, the tagline "A curious mind. A purposeful life." (from the reference mockup), the "Curious about ideas, people, places, conversations" line, manifesto, and the four crest meanings (tiger, horse, pen and book, flags)
 - [ ] The sample essay "Why I write every decision down before I make it", and the five other essay titles and summaries on `blogs/`. Only the first essay has a page; the other cards link to it for now
 - [ ] Privacy policy: plain-language draft, should be checked against the law where he operates
