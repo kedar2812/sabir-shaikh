@@ -270,30 +270,18 @@
       .catch(function () { /* keep the static tiles */ });
   }
 
-  /* ---------- Podcast player (visual until a real episode file is wired in) ---------- */
-  document.querySelectorAll(".player").forEach(function (player) {
-    var btn = player.querySelector(".player__play");
-    var bars = player.querySelectorAll(".wave i");
-    var now = player.querySelector("[data-now]");
-    var total = parseInt(player.dataset.length || "0", 10);
-    var audio = player.querySelector("audio");
-    var pos = 0, timer = null;
-    var fmt = function (s) { return Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0"); };
-    var paint = function () {
-      var f = total ? pos / total : 0;
-      bars.forEach(function (b, i) { b.classList.toggle("done", i / bars.length < f); });
-      if (now) now.textContent = fmt(pos);
-    };
+  /* ---------- Podcast video: the YouTube player loads only when asked for ---------- */
+  document.querySelectorAll("[data-video]").forEach(function (ep) {
+    var btn = ep.querySelector(".ep__play");
     btn.addEventListener("click", function () {
-      var playing = player.classList.toggle("is-playing");
-      btn.setAttribute("aria-label", playing ? "Pause episode" : "Play episode");
-      if (audio && audio.src) {
-        playing ? audio.play() : audio.pause();
-        audio.ontimeupdate = function () { pos = audio.currentTime; total = audio.duration || total; paint(); };
-        return;
-      }
-      clearInterval(timer);
-      if (playing) timer = setInterval(function () { pos = Math.min(total, pos + 1); paint(); }, 1000);
+      var frame = document.createElement("iframe");
+      frame.src = "https://www.youtube-nocookie.com/embed/" + ep.dataset.video + "?autoplay=1&rel=0";
+      frame.title = ep.dataset.title || "Video";
+      frame.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      frame.allowFullscreen = true;
+      ep.classList.add("is-playing");
+      ep.querySelector(".ep__media").replaceChildren(frame);
+      track("podcast_play", { video: ep.dataset.video });
     });
   });
 

@@ -1,6 +1,6 @@
 # sabirshaikh.in
 
-Personal website for Sabir Salim Shaikh: entrepreneur, writer and podcast host.
+Personal website for Sabir Salim Shaikh, founder, chairman and managing director of SAVIANS Group.
 Static HTML, CSS and a little JavaScript. No framework, no build step beyond stamping shared partials.
 
 ## Preview locally
