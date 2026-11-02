@@ -4,13 +4,10 @@ ErrorDocument 404 /404.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  # Every canonical URL uses www, so send the bare domain there, keeping the scheme.
-  # Once the SSL certificate is active, replace both rules with one https:// redirect.
+  # Every canonical URL is https://www, so plain http and the bare domain go there in one hop.
+  RewriteCond %{HTTPS} !on [OR]
   RewriteCond %{HTTP_HOST} ^sabirshaikh\.in$ [NC]
-  RewriteCond %{HTTPS} on
   RewriteRule ^ https://www.sabirshaikh.in%{REQUEST_URI} [R=301,L]
-  RewriteCond %{HTTP_HOST} ^sabirshaikh\.in$ [NC]
-  RewriteRule ^ http://www.sabirshaikh.in%{REQUEST_URI} [R=301,L]
 </IfModule>
 
 AddType image/webp .webp

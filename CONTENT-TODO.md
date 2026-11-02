@@ -24,7 +24,7 @@ Anything underlined with a dotted line on the site (class `tbd`) is a placeholde
 - [ ] Contact form endpoint: paste a Formspree/Basin URL into `data-endpoint=""` in `contact/index.html` (until then the form opens the visitor's email app)
 - [ ] Google Analytics 4 measurement ID (uncomment the block in `_partials/head.html`, then run `python build.py`)
 - [ ] Google Search Console verification tag (same file)
-- [ ] Hosting: point www.sabirshaikh.in at the host and redirect the bare domain to www (every canonical URL uses www)
+- [x] Hosting: live on the Cloud4Host server with a free Let's Encrypt certificate (covers sabirshaikh.in and www); every address redirects to https://www.sabirshaikh.in
 
 ## Copy to approve
 These were written in Sabir's voice and need his sign-off:
