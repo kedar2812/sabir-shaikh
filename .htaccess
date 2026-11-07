@@ -4,6 +4,19 @@ DirectoryIndex index.php
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # dashboard.sabirshaikh.in is served from this same folder: its home page is the
+  # dashboard, and it only serves the dashboard, its API, the assets and the photos.
+  RewriteCond %{HTTP_HOST} ^dashboard\.sabirshaikh\.in$ [NC]
+  RewriteCond %{HTTPS} !on
+  RewriteRule ^ https://dashboard.sabirshaikh.in%{REQUEST_URI} [R=301,L]
+  RewriteCond %{HTTP_HOST} ^dashboard\.sabirshaikh\.in$ [NC]
+  RewriteRule ^$ dashboard/index.php [L]
+  RewriteCond %{HTTP_HOST} ^dashboard\.sabirshaikh\.in$ [NC]
+  RewriteRule ^dashboard/?$ / [R=302,L]
+  RewriteCond %{HTTP_HOST} ^dashboard\.sabirshaikh\.in$ [NC]
+  RewriteCond %{REQUEST_URI} !^/(dashboard|assets|uploads)/
+  RewriteRule ^ https://dashboard.sabirshaikh.in/ [R=302,L]
+
   # Every canonical URL is https://www, so plain http and the bare domain go there in one hop.
   RewriteCond %{HTTPS} !on [OR]
   RewriteCond %{HTTP_HOST} ^sabirshaikh\.in$ [NC]

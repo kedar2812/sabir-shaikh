@@ -15,7 +15,6 @@ Plain PHP (the server runs **PHP 7.3**, so no newer syntax), SQLite, and vanilla
 | `data/` | Created on the server: `site.sqlite` and sessions. Never served, never in git |
 | `uploads/` | Photos uploaded from the dashboard, re-encoded as WebP |
 | `dashboard/` | The dashboard: `index.php` (the page), `api.php` (JSON API), `app.css`, `js/` |
-| `deploy/dashboard-subdomain/` | Files for `dashboard.sabirshaikh.in` (not uploaded to the main site) |
 | `assets/` | Fonts, photos, crest, site CSS and JS |
 
 ## Running it locally
@@ -29,11 +28,14 @@ serve real files, and send everything else to `index.php`. Create `app/config.lo
 
 ## Dashboard on its own subdomain
 
-`dashboard.sabirshaikh.in` has its own folder on the server (`/home/www/dashboard.sabirshaikh.in`). It holds only
-`deploy/dashboard-subdomain/.htaccess` plus three links (`dashboard`, `assets`, `uploads`) into the main site's
-folder, made once by `setup.php`. One copy of the code, one database. The sign-in cookie is set for
-`.sabirshaikh.in` (`cookie_domain` in the config), so previews of unsaved edits open on www.
-Setting `dashboard_url` in the server config sends `www.sabirshaikh.in/dashboard/` to the subdomain.
+`dashboard.sabirshaikh.in` is a subdomain in the Cloud4Host panel whose document root is this same folder
+(`/www/sabirshaikh.in`), with its own free Let's Encrypt certificate. The first block in `.htaccess` makes that
+host serve only the dashboard (its home page), the API, `assets/` and `uploads/`; anything else goes back to the
+dashboard. One copy of the code, one database.
+
+On the server, `app/config.local.php` sets `cookie_domain` to `.sabirshaikh.in` (one sign-in for the dashboard and
+www, so previews of unsaved edits open on www) and `dashboard_url` to `https://dashboard.sabirshaikh.in`
+(so `www.sabirshaikh.in/dashboard/` redirects there).
 
 ## Design system
 
