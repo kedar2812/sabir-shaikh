@@ -1,41 +1,46 @@
 # sabirshaikh.in
 
-Personal website for Sabir Salim Shaikh, founder, chairman and managing director of SAVIANS Group.
-Static HTML, CSS and a little JavaScript. No framework, no build step beyond stamping shared partials.
+Personal website for Sabir Salim Shaikh, founder, chairman and managing director of SAVIANS Group,
+with a dashboard for writing essays, adding podcast episodes, editing every page and reading visit numbers.
 
-## Preview locally
-
-```sh
-python -m http.server 5180
-# open http://localhost:5180
-```
-
-Open it through a server, not by double-clicking the HTML file. The crest is an SVG referenced with `<use>`, which browsers block on `file://`.
+Plain PHP (the server runs **PHP 7.3**, so no newer syntax), SQLite, and vanilla JavaScript. No framework, no build step.
 
 ## Structure
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | Home: hero, manifesto, crest tour, about, business, blogs, podcast, featured, Instagram, contact |
-| `about/` | Biography, experience, education, recognition, FAQ (ProfilePage + FAQPage schema) |
-| `blogs/` | Essay listing with topic filter and search (`?topic=deals`, `?q=word`) |
-| `blogs/why-i-write-every-decision-down/` | Article template: breadcrumbs, H1–H3, summary, dates, author bio, tags, references, share buttons, related posts (BlogPosting schema) |
-| `contact/` | Contact form with honeypot spam trap, email and social links |
-| `privacy-policy/`, `404.html` | Required pages |
-| `_partials/` | Shared `<head>`, header and footer |
-| `build.py` | Run after editing anything in `_partials/` to update every page |
-| `assets/img/crest.svg` | The crest, vectorised from the brand kit. Colour follows CSS `color` |
+| `index.php` | Front door for every public address (see `.htaccess`). Also receives visit counts at `/api/v`, `/api/t`, `/api/e` |
+| `app/` | Shared code: database (`db.php`), the editable-content schema (`content.php`), page templates (`views/`), sign-in, photo processing, analytics. Never served |
+| `app/config.local.php` | Server-only secrets and the first login. Not in git; copy `config.local.example.php` |
+| `data/` | Created on the server: `site.sqlite` and sessions. Never served, never in git |
+| `uploads/` | Photos uploaded from the dashboard, re-encoded as WebP |
+| `dashboard/` | The dashboard: `index.php` (the page), `api.php` (JSON API), `app.css`, `js/` |
+| `deploy/dashboard-subdomain/` | Files for `dashboard.sabirshaikh.in` (not uploaded to the main site) |
+| `assets/` | Fonts, photos, crest, site CSS and JS |
+
+## Running it locally
+
+```sh
+php -d extension=pdo_sqlite -S 127.0.0.1:5191 -t . router.php
+```
+
+`router.php` has to mirror `.htaccess`: block `app/` and `data/`, send `dashboard/api/*` to `dashboard/api.php?r=*`,
+serve real files, and send everything else to `index.php`. Create `app/config.local.php` with a test login first.
+
+## Dashboard on its own subdomain
+
+`dashboard.sabirshaikh.in` has its own folder on the server (`/home/www/dashboard.sabirshaikh.in`). It holds only
+`deploy/dashboard-subdomain/.htaccess` plus three links (`dashboard`, `assets`, `uploads`) into the main site's
+folder, made once by `setup.php`. One copy of the code, one database. The sign-in cookie is set for
+`.sabirshaikh.in` (`cookie_domain` in the config), so previews of unsaved edits open on www.
+Setting `dashboard_url` in the server config sends `www.sabirshaikh.in/dashboard/` to the subdomain.
 
 ## Design system
 
-- **Colours:** haze `#ecede8`, lacquer `#10151f`, oxblood `#6e1517`, saffron `#e6a03a`, slate `#5a5f68`. Taken from the photographs and the crest.
-- **Type:** Melodrama for display, Switzer for text. Both from Indian Type Foundry's Fontshare (free for commercial use), self-hosted in `assets/fonts/`.
-- **Motion:** Lenis smooth scrolling plus one requestAnimationFrame loop in `assets/js/site.js` that drives every scroll scene. With `prefers-reduced-motion` on, nothing is pinned and every scene shows its final state.
+- **Colours:** haze `#ecede8`, lacquer `#10151f`, oxblood `#6e1517`, saffron `#e6a03a`, slate `#5a5f68`.
+- **Type:** Melodrama for display, Switzer for text (Indian Type Foundry, Fontshare), self-hosted in `assets/fonts/`.
+- **Dashboard charts:** red, blue, saffron in that fixed order, checked for colour-blind separation in light and dark.
 
 ## Before launch
 
 See `CONTENT-TODO.md`.
-
-## Moving to WordPress
-
-The requirements recommend WordPress so articles can be added without code. This build is the finished front end: each page maps to a template (`front-page.php`, `page-about.php`, `archive.php` / `home.php`, `single.php`, `page-contact.php`, `404.php`). Topics become WordPress categories, the `tbd` fields become ACF fields, and the Instagram row can stay as is with a Behold or Smash Balloon feed URL.

@@ -239,8 +239,8 @@
   requestAnimationFrame(frame);
 
   /* ---------- Instagram feed ----------
-     Set data-feed on the section to a JSON feed URL (Behold.so, or your own
-     Instagram Graph API proxy). Until then the tiles below stay as they are. */
+     The live feed link (Behold.so) is set from the dashboard. Without one,
+     the posts chosen in the dashboard stay as they are. */
   var insta = document.querySelector("[data-feed]");
   if (insta && insta.dataset.feed) {
     fetch(insta.dataset.feed)
@@ -281,7 +281,7 @@
       frame.allowFullscreen = true;
       ep.classList.add("is-playing");
       ep.querySelector(".ep__media").replaceChildren(frame);
-      track("podcast_play", { video: ep.dataset.video });
+      track("podcast_play", ep.dataset.title || ep.dataset.video);
     });
   });
 
@@ -354,6 +354,7 @@
         var body = data.get("message") + "\n\n" + data.get("name") + "\n" + data.get("email");
         location.href = "mailto:" + form.dataset.mailto + "?subject=" + encodeURIComponent(data.get("reason") + ": " + data.get("name")) + "&body=" + encodeURIComponent(body);
         status.textContent = "Your email app should open with the message filled in.";
+        track("contact_form", data.get("reason"));
         return;
       }
       status.textContent = "Sending…";
@@ -362,7 +363,7 @@
           if (!r.ok) throw new Error();
           status.textContent = "Message sent. Sabir's team replies within two working days.";
           form.reset();
-          track("contact_form_submit", { reason: data.get("reason") });
+          track("contact_form", data.get("reason"));
         })
         .catch(function () { status.textContent = "That didn't go through. Email " + form.dataset.mailto + " directly and it will reach the same inbox."; });
     });
@@ -380,10 +381,49 @@
     });
   });
 
-  /* ---------- Click tracking for GA4 (requirement 9) ---------- */
-  function track(name, params) { if (typeof window.gtag === "function") window.gtag("event", name, params || {}); }
+  /* ---------- Visit counting ----------
+     The site counts its own visits: no tracking cookies, no outside service. The owner
+     is left out (the dashboard sets an ss_ignore cookie), so the numbers are visitors only. */
+  function counting() {
+    var ignored = false;
+    // Set by the dashboard (a cookie shared across sabirshaikh.in); older browsers kept it in storage.
+    ignored = /(?:^|;\s*)ss_ignore=1(?:;|$)/.test(document.cookie);
+    try { ignored = ignored || localStorage.getItem("ss_ignore") === "1"; } catch (e) { /* storage blocked */ }
+    return !ignored && !navigator.webdriver && /^https?:$/.test(location.protocol) && !/[?&]preview=/.test(location.search);
+  }
+  function beacon(url, data) {
+    var body = JSON.stringify(data);
+    if (navigator.sendBeacon && navigator.sendBeacon(url, new Blob([body], { type: "application/json" }))) return;
+    fetch(url, { method: "POST", body: body, headers: { "Content-Type": "application/json" }, keepalive: true }).catch(function () {});
+  }
+  function track(name, label) {
+    if (counting()) beacon("/api/e", { n: name, l: label || "", p: location.pathname });
+  }
+  if (counting()) {
+    var qs = new URLSearchParams(location.search);
+    var hitId = null, visible = 0, since = document.visibilityState === "visible" ? Date.now() : 0, sent = 0;
+    var tz = "";
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) { /* old browser */ }
+    fetch("/api/v", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ p: location.pathname, r: document.referrer, w: window.innerWidth, tz: tz, us: qs.get("utm_source") || qs.get("ref") || "", uc: qs.get("utm_campaign") || "" })
+    }).then(function (r) { return r.json(); }).then(function (d) { hitId = d && d.id; }).catch(function () {});
+    // Time on page counts only while the tab is in front.
+    var flush = function () {
+      if (since) { visible += Date.now() - since; since = 0; }
+      var s = Math.round(visible / 1000);
+      if (hitId && s > sent) { sent = s; beacon("/api/t", { id: hitId, s: s }); }
+    };
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "hidden") flush();
+      else since = Date.now();
+    });
+    window.addEventListener("pagehide", flush);
+  }
+
   document.addEventListener("click", function (e) {
     var a = e.target.closest("[data-track]");
-    if (a) track("outbound_click", { link_type: a.dataset.track, link_url: a.href || "" });
+    if (a) track("click", a.dataset.track);
   });
 })();

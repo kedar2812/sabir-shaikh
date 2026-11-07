@@ -1,13 +1,24 @@
 Options -Indexes
-DirectoryIndex index.html
-ErrorDocument 404 /404.html
+DirectoryIndex index.php
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
   # Every canonical URL is https://www, so plain http and the bare domain go there in one hop.
   RewriteCond %{HTTPS} !on [OR]
   RewriteCond %{HTTP_HOST} ^sabirshaikh\.in$ [NC]
   RewriteRule ^ https://www.sabirshaikh.in%{REQUEST_URI} [R=301,L]
+
+  # Code, the database and the sessions are never served.
+  RewriteRule ^(app|data)(/|$) - [F,L]
+
+  # The dashboard's API.
+  RewriteRule ^dashboard/api/(.*)$ dashboard/api.php?r=$1 [QSA,L]
+
+  # Anything that isn't a real file or folder is a page: hand it to index.php.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.php [L]
 </IfModule>
 
 AddType image/webp .webp
@@ -22,9 +33,13 @@ AddType image/svg+xml .svg
   ExpiresActive On
   ExpiresDefault "access plus 1 hour"
   ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/json "access plus 0 seconds"
   ExpiresByType image/webp "access plus 30 days"
   ExpiresByType image/jpeg "access plus 30 days"
   ExpiresByType image/png "access plus 30 days"
   ExpiresByType image/svg+xml "access plus 30 days"
   ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/css "access plus 30 days"
+  ExpiresByType text/javascript "access plus 30 days"
+  ExpiresByType application/javascript "access plus 30 days"
 </IfModule>

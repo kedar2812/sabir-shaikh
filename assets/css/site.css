@@ -532,3 +532,41 @@ p { margin: 0 0 1em; }
 .rm .tour__progress { display: none; }
 .rm .reel { height: auto; }
 .rm .reel__track { transform: none !important; }
+
+/* ---------- Content managed from the dashboard ---------- */
+/* Photos keep the focus point and zoom chosen in the dashboard's photo positioner.
+   The phone values take over below 860px when a frame has its own phone shape. */
+img.fx {
+  object-position: var(--fx, 50%) var(--fy, 50%);
+  transform-origin: var(--fx, 50%) var(--fy, 50%);
+  scale: var(--fz, 1);
+}
+@media (max-width: 860px) {
+  img.fx {
+    object-position: var(--mfx, var(--fx, 50%)) var(--mfy, var(--fy, 50%));
+    transform-origin: var(--mfx, var(--fx, 50%)) var(--mfy, var(--fy, 50%));
+    scale: var(--mfz, var(--fz, 1));
+  }
+}
+.posts--single { grid-template-columns: minmax(0, 1fr); }
+.posts--single .post--feature .post__cover { aspect-ratio: 21 / 9; }
+.post__cover--photo { background: #d9dad4; }
+.post__cover--photo::before { display: none; }
+.ep__title a { text-decoration: none; }
+.ep__title a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+.podcast--page { padding-top: calc(var(--nav-h) + clamp(2.5rem, 8vh, 5rem)); }
+.podcast--page .crumbs { color: rgba(247, 247, 243, 0.6); }
+.podcast--page .page-title { color: var(--bone); font-size: var(--t-h2); }
+h1.ep__title { font-size: clamp(2.6rem, 1.6rem + 3vw, 5rem); }
+.episodes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4rem clamp(1.5rem, 3vw, 2.5rem); }
+.episode__media { display: block; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 999px 999px 0 0; background: #d9dad4; margin-bottom: 1.25rem; }
+.episode__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--ease-out); }
+.episode:hover .episode__media img { transform: scale(1.03); }
+@media (max-width: 960px) { .episodes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .episodes { grid-template-columns: 1fr; } }
+.notes__title { grid-column: 1; font-size: var(--t-h3); }
+.prose__date { color: var(--slate); font-size: var(--t-small); }
+.prose figure { margin: 2.5rem 0; }
+.prose figure img { width: 100%; height: auto; border-radius: 4px; }
+.prose figcaption { font-size: var(--t-small); color: var(--slate); margin-top: 0.75rem; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 3rem 0; }

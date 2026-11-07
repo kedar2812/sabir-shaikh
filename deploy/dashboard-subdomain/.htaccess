@@ -1,0 +1,41 @@
+# dashboard.sabirshaikh.in
+# This folder holds no code of its own. setup.php links dashboard/, assets/ and
+# uploads/ to the main site's folders (/home/www/sabirshaikh.in), so the dashboard,
+# its API and the photos all run from one copy of the code and one database.
+Options -Indexes
+DirectoryIndex disabled
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{HTTPS} !on
+  RewriteRule ^ https://dashboard.sabirshaikh.in%{REQUEST_URI} [R=301,L]
+
+  # The dashboard's API.
+  RewriteRule ^dashboard/api/(.*)$ dashboard/api.php?r=$1 [QSA,L]
+
+  # The dashboard itself is the home page of this subdomain.
+  RewriteRule ^$ dashboard/index.php [L]
+  RewriteRule ^dashboard/?$ / [R=302,L]
+
+  # Anything else that isn't a real file goes back to the dashboard.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^ / [R=302,L]
+</IfModule>
+
+AddType image/webp .webp
+AddType font/woff2 .woff2
+AddType image/svg+xml .svg
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
