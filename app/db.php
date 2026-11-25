@@ -45,7 +45,31 @@ function q_val($sql, $params = [])
 function migrate(PDO $pdo)
 {
     $version = (int) $pdo->query('PRAGMA user_version')->fetchColumn();
-    if ($version >= 1) return;
+    if ($version < 1) migrate_create($pdo);
+    if ($version < 2) migrate_episode_framing($pdo);
+}
+
+// v2: the first episode photo is cropped from the right, so its seeded framing left
+// the second guest cut off at the edge. Zoom in from the bottom right to put both
+// people in the middle of the arch. A framing changed in the dashboard is left alone.
+function migrate_episode_framing(PDO $pdo)
+{
+    $pdo->beginTransaction();
+    $up = $pdo->prepare('UPDATE episodes SET image = ? WHERE id = ?');
+    foreach ($pdo->query("SELECT id, image FROM episodes WHERE image LIKE '%5-girija-oak.webp%'")->fetchAll() as $row) {
+        $img = json_decode($row['image'], true);
+        if (!is_array($img) || $img['src'] !== '/assets/img/insta/5-girija-oak.webp') continue;
+        $d = isset($img['focus']['d']) ? $img['focus']['d'] : ['x' => 50, 'y' => 50, 'z' => 1];
+        if ((float) $d['x'] !== 50.0 || (float) $d['y'] !== 40.0 || (float) (isset($d['z']) ? $d['z'] : 1) !== 1.0) continue;
+        $img['focus']['d'] = ['x' => 100, 'y' => 100, 'z' => 1.22];
+        $up->execute([json_encode($img, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), $row['id']]);
+    }
+    $pdo->exec('PRAGMA user_version = 2');
+    $pdo->commit();
+}
+
+function migrate_create(PDO $pdo)
+{
 
     $pdo->beginTransaction();
     $pdo->exec("

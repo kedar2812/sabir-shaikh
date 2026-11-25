@@ -93,16 +93,16 @@ site_header();
   <section class="tour" data-scene="tour" data-dark aria-labelledby="tour-title">
     <div class="tour__stage">
       <div class="tour__view">
-        <svg viewBox="-38 -155 1900 1900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="The crest: a tiger and a horse either side of a shield, with two flags, a pen nib, crossed rifles and an open book"><use href="/assets/img/crest.svg#c"/></svg>
+        <svg viewBox="84 -20 1200 1200" preserveAspectRatio="xMidYMid meet" role="img" aria-label="The crest: a tiger and a horse either side of a shield, with two flags, a pen nib, crossed rifles and an open book, above a ribbon reading Sabir Salim Shaikh"><image href="/assets/img/crest-tour.webp" width="1352" height="1163"/></svg>
       </div>
       <div class="tour__captions">
         <div class="tour__cap is-on">
           <h2 id="tour-title"><?= e($crest['intro_title']) ?></h2>
           <p><?= e($crest['intro_text']) ?></p>
         </div>
-<?php $items = array_slice(array_pad((array) $crest['items'], 4, ['title' => '', 'text' => '']), 0, 4); foreach ($items as $i => $item): ?>
+<?php $items = array_slice(array_pad((array) $crest['items'], 5, ['title' => '', 'text' => '']), 0, 5); foreach ($items as $i => $item): ?>
         <div class="tour__cap" aria-hidden="true">
-          <p class="tour__count"><?= $i + 1 ?> of 4</p>
+          <p class="tour__count"><?= $i + 1 ?> of <?= count($items) ?></p>
           <h3><?= e($item['title']) ?></h3>
           <p><?= e($item['text']) ?></p>
         </div>
@@ -113,7 +113,7 @@ site_header();
           <p><a class="link-arrow" href="/about/"><?= e($crest['outro_link']) ?> <?= icon('arrow') ?></a></p>
         </div>
       </div>
-      <div class="tour__progress" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span></div>
+      <div class="tour__progress" aria-hidden="true"><?= str_repeat('<span><i></i></span>', count($items)) ?></div>
     </div>
   </section>
 

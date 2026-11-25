@@ -98,10 +98,10 @@ function content_schema_build()
             ['name' => 'text', 'label' => 'Statement', 'type' => 'textarea', 'default' => "Success isn't only about building businesses. It's about building people, and creating opportunities for them."],
             ['name' => 'signature', 'label' => 'Signed', 'type' => 'text', 'default' => 'Sabir'],
         ]],
-        ['key' => 'home.crest', 'group' => 'home', 'label' => 'The crest', 'intro' => 'The dark red section where the camera moves across the crest. The four parts follow the artwork, so there are always four.', 'fields' => [
+        ['key' => 'home.crest', 'group' => 'home', 'label' => 'The crest', 'intro' => 'The dark red section where the camera moves across the crest. The five parts follow the artwork, so there are always five.', 'fields' => [
             ['name' => 'intro_title', 'label' => 'Opening heading', 'type' => 'text', 'default' => "What's on the crest"],
             ['name' => 'intro_text', 'label' => 'Opening text', 'type' => 'textarea', 'default' => "It was drawn as a logo. It turned into a set of rules. Keep scrolling and I'll walk you through them."],
-            ['name' => 'items', 'label' => 'The four parts', 'type' => 'list', 'fixed' => true, 'item' => 'title', 'fields' => [
+            ['name' => 'items', 'label' => 'The five parts', 'type' => 'list', 'fixed' => true, 'item' => 'title', 'fields' => [
                 ['name' => 'title', 'label' => 'Heading', 'type' => 'text'],
                 ['name' => 'text', 'label' => 'Text', 'type' => 'textarea'],
             ], 'default' => [
@@ -109,8 +109,9 @@ function content_schema_build()
                 ['title' => 'The horse', 'text' => "Stamina. Horses have been a passion of mine for years, and they teach what business does: nobody wins on the first furlong. Most of what I've built came from turning up on ordinary days."],
                 ['title' => 'The pen and the book', 'text' => "If I can't explain a decision on one page, I'm not ready to make it. The pen is for writing it down. The book is for reading what everyone before me already worked out."],
                 ['title' => 'The flags', 'text' => 'Ground taken, and held. Two flags, because nothing worth holding is held alone. Some of the people at SAVIANS have been with me for more than twenty years.'],
+                ['title' => 'The crossed rifles', 'text' => "Focus. The shooting range teaches what a deadline does: you get one clean shot, and it goes wherever your attention was. The rifles cross over the shield because what you've built is worth guarding."],
             ]],
-            ['name' => 'outro_title', 'label' => 'Closing heading', 'type' => 'text', 'default' => 'All four at once'],
+            ['name' => 'outro_title', 'label' => 'Closing heading', 'type' => 'text', 'default' => 'All five at once'],
             ['name' => 'outro_text', 'label' => 'Closing text', 'type' => 'textarea', 'default' => 'Nerve without stamina burns out. Stamina without thinking goes in circles. The crest is there to remind me to carry all of it.'],
             ['name' => 'outro_link', 'label' => 'Closing link label', 'type' => 'text', 'default' => "Read Sabir's story", 'help' => 'Goes to the About page.'],
         ]],
@@ -353,6 +354,13 @@ function content_all()
     $all = [];
     foreach (content_schema() as $s) {
         $all[$s['key']] = array_replace(content_defaults($s), isset($saved[$s['key']]) && is_array($saved[$s['key']]) ? $saved[$s['key']] : []);
+        // A fixed list follows the artwork: when the artwork gains a part, saved
+        // values keep their edits and the new parts come from the defaults.
+        foreach ($s['fields'] as $f) {
+            if (empty($f['fixed']) || !isset($f['default'])) continue;
+            $list = array_values((array) $all[$s['key']][$f['name']]);
+            $all[$s['key']][$f['name']] = array_slice(array_merge($list, array_slice($f['default'], count($list))), 0, count($f['default']));
+        }
     }
     $preview = preview_overrides('content');
     foreach ($preview as $key => $values) if (isset($all[$key]) && is_array($values)) $all[$key] = array_replace($all[$key], $values);

@@ -73,7 +73,7 @@ HTML;
             'video_id' => '1UZmebflYBA',
             'duration' => 64,
             'credit' => 'Filmed by Smashbox Productions.',
-            'image' => img_seed('/assets/img/insta/5-girija-oak.webp', 'Sabir Shaikh and Girija Oak in hard hats on a SAVIANS construction site', 50, 40),
+            'image' => ['focus' => ['d' => ['x' => 100, 'y' => 100, 'z' => 1.22]]] + img_seed('/assets/img/insta/5-girija-oak.webp', 'Sabir Shaikh and Girija Oak in hard hats on a SAVIANS construction site'),
             'links' => [
                 ['label' => 'Watch on YouTube', 'url' => 'https://youtu.be/1UZmebflYBA'],
                 ['label' => 'Subscribe to the channel', 'url' => 'https://www.youtube.com/@sabirshaikhlive'],

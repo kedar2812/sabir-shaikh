@@ -90,7 +90,7 @@ p { margin: 0 0 1em; }
   height: 100%; max-width: none;
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 2rem;
 }
-.nav__list { display: flex; gap: clamp(1rem, 2.2vw, 2.25rem); margin: 0; padding: 0; list-style: none; font-size: 0.9375rem; font-weight: 500; }
+.nav__list { display: flex; gap: clamp(1rem, 2.2vw, 2.25rem); margin: 0; padding: 0; list-style: none; font-size: 0.8125rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; }
 .nav__list--right { justify-content: flex-end; }
 .nav__list a { text-decoration: none; padding-block: 0.4rem; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 350ms var(--ease-out); }
 .nav__list a:hover, .nav__list a[aria-current="page"] { background-size: 100% 1px; }
@@ -216,11 +216,12 @@ p { margin: 0 0 1em; }
 .manifesto__sign svg { width: 44px; color: var(--oxblood); }
 
 /* ---------- Crest tour ---------- */
-.tour { position: relative; height: 560svh; background: var(--oxblood); color: var(--bone); }
+/* The section takes the red of the crest artwork, so its feathered edges disappear. */
+.tour { --crest-red: #4d010a; position: relative; height: 640svh; background: var(--crest-red); color: var(--bone); }
 .tour__stage { position: sticky; top: 0; height: 100svh; overflow: hidden; display: grid; grid-template-columns: 1.15fr 1fr; align-items: center; }
 .tour__view { position: absolute; inset: 0; color: var(--saffron); }
 .tour__view svg { width: 100%; height: 100%; }
-.tour__view::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 42%, rgba(79, 14, 16, 0.92) 62%); pointer-events: none; }
+.tour__view::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 42%, rgba(77, 1, 10, 0.93) 62%); pointer-events: none; }
 .tour__captions { position: relative; grid-column: 2; height: 60svh; margin-right: var(--gutter); }
 .tour__cap { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; max-width: 30rem; opacity: 0; transform: translateY(30px); transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out); pointer-events: none; }
 .tour__cap.is-on { opacity: 1; transform: none; pointer-events: auto; }
@@ -232,9 +233,9 @@ p { margin: 0 0 1em; }
 .tour__progress span i { position: absolute; inset: 0; background: var(--saffron); transform-origin: left; transform: scaleX(0); }
 
 @media (max-width: 860px) {
-  .tour { height: 520svh; }
+  .tour { height: 600svh; }
   .tour__stage { grid-template-columns: 1fr; grid-template-rows: 54svh 1fr; align-items: start; }
-  .tour__view::after { background: linear-gradient(180deg, transparent 48%, rgba(79, 14, 16, 0.94) 60%); }
+  .tour__view::after { background: linear-gradient(180deg, transparent 48%, rgba(77, 1, 10, 0.95) 60%); }
   .tour__captions { grid-column: 1; grid-row: 2; height: 42svh; margin: 0 var(--gutter); }
   .tour__cap { justify-content: flex-start; }
   .tour__cap h2, .tour__cap h3 { font-size: 3rem; margin-bottom: 0.75rem; }

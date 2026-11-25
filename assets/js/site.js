@@ -146,15 +146,16 @@
     var svg = view.querySelector("svg");
     var caps = tour.querySelectorAll(".tour__cap");
     var ticks = tour.querySelectorAll(".tour__progress i");
-    // [centre x, centre y, span] in crest units (artwork is 1825 x 1590).
+    // [centre x, centre y, span] in image pixels (the artwork is 1352 x 1163).
     // The span is framed inside a focus box on the left (desktop) or top (mobile).
     var views = [
-      [912, 795, 1900],  // whole crest
-      [300, 720, 900],   // tiger
-      [1525, 700, 900],  // horse
-      [912, 640, 1200],  // pen nib and book
-      [912, 400, 1250],  // flags
-      [912, 795, 1900]   // whole crest again
+      [684, 580, 1200],  // whole crest
+      [340, 600, 600],   // tiger
+      [1020, 600, 600],  // horse
+      [676, 515, 760],   // pen nib and book
+      [676, 300, 700],   // flags
+      [676, 595, 520],   // crossed rifles over the shield
+      [684, 580, 1200]   // whole crest again
     ];
     var shown = -1;
     scenes.push(function () {
